@@ -1,0 +1,31 @@
+application: fuelpostapp
+version: 1
+runtime: php55
+api_version: 1
+threadsafe: yes
+
+handlers:
+- url: /favicon\.ico
+  static_files: favicon.ico
+  upload: favicon\.ico
+
+- url: /
+  script: www/index.html
+
+- url: /lib/ionic/css/
+  static_dir: www/lib/ionic/css/
+
+- url: /css/
+  static_dir: www/css
+
+- url: /js/
+  static_dir: www/js/
+  
+- url: /lib/ionic/js/
+  static_dir: www/lib/ionic/js/
+
+- url: /templates/
+  static_dir: www/templates/
+  
+- url: /lib/ionic/fonts/
+  static_dir: www/lib/ionic/fonts/

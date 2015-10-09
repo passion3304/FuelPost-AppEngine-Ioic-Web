@@ -1,0 +1,13 @@
+<ion-view view-title="Fuel Post App - Diesel">
+  <!-- Uncomment to let the controller called 'FuelController' work as soon as the page loads-->
+    <ion-content >
+
+      <!-- Trying out loop since the JSON is now working -->
+      <div class="card" ng-repeat="omc in omcs" >
+        <a class="item item-text-wrap" href="#/app/playlists/{{playlist.id}}"> {{omc.name}}<h3 id="thePrice" style="float:right;">GHS {{omc.diesel}}</h3></a>
+
+      </div>
+
+  </ion-content>
+</ion-view>
+
