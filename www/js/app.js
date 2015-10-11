@@ -56,6 +56,7 @@ var testFetch = angular.module('starter', ['ionic', 'starter.controllers'])
         templateUrl: 'templates/playlists.html',
         //controller: 'PlaylistsCtrl'
         controller: 'FuelController'
+        //controller: 'AllOMCController'
       }
     }
   })
@@ -88,24 +89,51 @@ var testFetch = angular.module('starter', ['ionic', 'starter.controllers'])
       }
     }
   })
-  .state('app.chats', {
-        url: '/chats',
-        views: {
-          'menuContent': {
-            templateUrl: 'templates/tab-chats.html',
-            controller: 'ChatsCtrl'
+  /*
+  .state('app.omcs', {
+      url: '/omcs',
+      controller: 'AllOMCController',
+      templateUrl: 'templates/omcs.html',
+
+      resolve: {
+        omcs: function(OMCService) {
+          return OMCService.getOmcs()
+        }
+      }
+
+    })
+    */
+    .state('todos', {
+        url: '/todos',
+        controller: 'TodosCtrl',
+        templateUrl: 'templates/omcs.html',
+        resolve: {
+          todos: function(TodosService) {
+            return TodosService.getTodos()
           }
         }
-  })
-  .state('app.chat-detail', {
-        url: '/chats/:chatId',
-        views: {
-          'menuContent': {
-            templateUrl: 'templates/chat-detail.html',
-            controller: 'ChatDetailCtrl'
+      })
+      .state('todo', {
+        url: '/todos/:todoId',
+        controller: 'TodoCtrl',
+        templateUrl: 'templates/omc.html',
+        resolve: {
+          todo: function($stateParams, TodosService) {
+            return TodosService.getTodo($stateParams.todoId)
           }
         }
-  });
+      })
+    .state('app.omc', {
+      url: '/omcs/:name',
+      controller: 'SingleOMCController',
+      templateUrl: 'templates/omc.html',
+      resolve: {
+        todo: function($stateParams, OMCService) {
+          return OMCService.getOmcs($stateParams.name)
+        }
+      }
+    })
+
   // if none of the above states are matched, use this as the fallback
   $urlRouterProvider.otherwise('/app/playlists');
 });

@@ -1,0 +1,113 @@
+<<html ng-app="ionicApp">
+
+<head>
+
+    <meta name="description" content="Combined 'Navigation and Routing Part 2' and 'Sharing Data Between Views' from learn.ionicframework.com" />
+
+    <link data-require="ionic@1.0.0-beta6" data-semver="1.0.0-beta6" rel="stylesheet" href="http://code.ionicframework.com/1.0.0-beta.6/css/ionic.css" />
+    <script data-require="ionic@1.0.0-beta6" data-semver="1.0.0-beta6" src="http://code.ionicframework.com/1.0.0-beta.6/js/ionic.bundle.js"></script>
+
+</head>
+
+<body>
+<ion-nav-view animation="slide-left-right"></ion-nav-view>
+
+
+<script type="text/ng-template" id="main.html">
+
+    <ion-nav-bar class="bar-dark">
+        <ion-nav-back-button class="button-clear">
+            <i class="ion-arrow-left-c"></i> Back
+        </ion-nav-back-button>
+    </ion-nav-bar>
+    <ion-tabs class="tabs-positive">
+        <ion-tab icon="ion-home" ui-sref="app.home">
+            <ion-nav-view name="vHome"></ion-nav-view>
+        </ion-tab>
+        <ion-tab icon="ion-help" ui-sref="app.help">
+            <ion-nav-view name="vHelp"></ion-nav-view>
+        </ion-tab>
+        <ion-tab icon="ion-clipboard" ui-sref="app.todos">
+            <ion-nav-view name="vTodos"></ion-nav-view>
+        </ion-tab>
+    </ion-tabs>
+</script>
+
+<script type="text/ng-template" id="help.html">
+    <ion-view title="Help">
+        <ion-content padding="true">
+            <h2>Using the app</h2>
+            <p>Lorem ipsum dolor sit amet...</p>
+            <a href=" https://vikasrao.wordpress.com/2010/02/07/common-javascript-interview-questions/"> vikasrao 10 common js</a>
+        </ion-content>
+    </ion-view>
+</script>
+
+<script type="text/ng-template" id="home.html">
+    <ion-view title="Home">
+        <ion-content padding="true">
+            <h2>Welcome!</h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+        </ion-content>
+    </ion-view>
+</script>
+
+
+
+<script type="text/ng-template" id="todos.html">
+    <ion-view title="Todos">
+
+
+        <ion-header-bar class="bar-subheader item-input-inset bar bar-header">
+            <label class="item-input-wrapper">
+                <i class="icon ion-ios7-search placeholder-icon"></i>
+                <input type="search" placeholder="Search..." ng-model="searchString" >
+            </label>
+
+            <!-- ngIf: searchString.length -->
+        </ion-header-bar>
+        <ion-content>
+
+
+
+
+            <ion-list>
+                <ion-item ng-repeat="todo in todos | filter:searchString" class="item item-icon-left" ui-sref="app.todos.detail({todoId: todo.id})">
+                    <p>{{todo.question}}</p>
+                    <i ng-class="{done: todo.flagged}" class="icon ion-flag"></i>
+                    <!--i class="icon ion-ios7-arrow-right"></i-->
+                </ion-item>
+
+            </ion-list>
+        </ion-content>
+    </ion-view>
+</script>
+
+
+<script type="text/ng-template" id="todo.html">
+    <ion-view title="Question {{todo.id}}">
+        <ion-content>
+            <p> {{todo.question}}</p>
+            <p> {{todo.answer}} </p>
+            <div class="list">
+                <!--label class="item item-input">
+                  <span class="input-label">Question</span>
+                  <input type="text" ng-model="todo.question">
+                </label>
+                <label class="item item-input">
+                  <span class="input-label">Answer</span>
+                  <input type="text" ng-model="todo.answer">
+                </label-->
+
+                <ion-toggle ng-model="todo.flagged" toggle-class="toggle-assertive">Done</ion-toggle>
+            </div>
+        </ion-content>
+    </ion-view>
+</script>
+
+
+
+
+</body>
+</html>
+

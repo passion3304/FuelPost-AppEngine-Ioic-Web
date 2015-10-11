@@ -52,15 +52,9 @@
       <ion-refresher pulling-text="Check prices" on-refresh="alert('Hello');"></ion-refresher>
       <!-- <ion-list><ion-item>{{err}}</ion-item></ion-list> -->
       <!-- Trying out loop since the JSON is now working -->
-      <div class="card" ng-repeat="omc in omcs" onclick="
-           var e = document.getElementById('hello');
-           if(e.style.display == 'block')
-              e.style.display = 'none';
-           else
-              e.style.display = 'block';
-        " >
-        <a class="item item-text-wrap"> {{omcs.name}}<h3 id="thePrice" style="float:right;">GHS {{omcs.petrol}}</h3></a>
-        <div id="hello" style="display:none;">NOW YOU SEE ME</div>
+      <div class="card" ng-repeat="omc in omcs" >
+        <a class="item item-text-wrap" href="#/app/playlists/{{playlist.id}}"> {{omc.name}}<h3 id="thePrice" style="float:right;">GHS {{omc.petrol}}</h3></a>
+
       </div>
 
       <!-- this is the chats html start -->

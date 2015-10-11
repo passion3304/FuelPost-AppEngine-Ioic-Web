@@ -1,11 +1,12 @@
 var FPApp = angular.module("FPApp", ["ionic"]);
+var app = angular.module('ionicApp', ['ionic'])
 
-FPApp.service("FPSvc", ["$http", "$rootScope", FPSvc]);
+FPApp.service("FPSvc", ["$http", "$rootScope"]);
 
 FPApp.controller("FPCtrl",
     ["$scope", "$sce",
      "$ionicLoading", "$ionicListDelegate", "$ionicPlatform",
-     "FPSvc", FPCtrl]);
+     "FPSvc"]);
 
 function FPCtrl($scope, $sce, $ionicLoading, $ionicListDelegate, $ionicPlatform, FPSvc) {
 
@@ -87,7 +88,13 @@ function refreshPrices(){
   return  $scope.omcs = [{"name":"fake omc 1", "price":23}];
 }
 
-
+function toggle_visibility(id) {
+           var e = document.getElementById(id);
+           if(e.style.display == 'block')
+              e.style.display = 'none';
+           else
+              e.style.display = 'block';
+        }
 
 testFetch.controller("FuelController", function($scope,$http,$ionicLoading){
   $ionicLoading.show({template:"Loading prices..."});
@@ -123,12 +130,33 @@ testFetch.controller("FuelController", function($scope,$http,$ionicLoading){
   }
 
 })
+//Putting service here to see if it would work
+/*
+testFetch.service('OMCService', function($q) {
+  return {
+    omcs: [{'name':'Shell','petrol':99.0,'diesel':99.0,'kerosene':99.0}],
+
+    getOmcs: function() {
+      return this.omcs
+    },
+    getOmc: function(omcName) {
+      var dfd = $q.defer()
+      this.omcs.forEach(function(omc) {
+        if (omc.name === omcName)
+        dfd.resolve(omc)
+      })
+
+      return dfd.promise
+    }
+
+  }
+})
+*/
 
 //Working on services from this point on so that I can pass data between views
 
 
-//This is the one that should be working to pull all OMC's from database
-FPApp.controller("DieselController", function($scope,$http,$ionicLoading){
+testFetch.controller("DieselController", function($scope,$http,$ionicLoading){
   $ionicLoading.show({template:"Loading prices..."})
   //Im puting the main operation outside the function so that it runs immediately
   // Apps script sample data JSON Beta link https://script.google.com/macros/s/AKfycbx2tfQe5F4pEOdFpf99DM8rMWtg_B1JguFxugBIUPWz76IbEpk/exec
@@ -148,53 +176,137 @@ FPApp.controller("DieselController", function($scope,$http,$ionicLoading){
 
 )
 
-//This was picked from the services.js from tabs starterpack
-FPSvc.factory('Chats', function() {
-  // Might use a resource here that returns a JSON array
+//I've created this controller to try and see if I can use it to pull a single OMC by Name
 
-  // Some fake testing data
-  var chats = [{
-    id: 0,
-    name: 'Ben Sparrow',
-    lastText: 'You on your way?',
-    face: 'https://pbs.twimg.com/profile_images/514549811765211136/9SgAuHeY.png'
-  }, {
-    id: 1,
-    name: 'Max Lynx',
-    lastText: 'Hey, it\'s me',
-    face: 'https://avatars3.githubusercontent.com/u/11214?v=3&s=460'
-  }, {
-    id: 2,
-    name: 'Adam Bradleyson',
-    lastText: 'I should buy a boat',
-    face: 'https://pbs.twimg.com/profile_images/479090794058379264/84TKj_qa.jpeg'
-  }, {
-    id: 3,
-    name: 'Perry Governor',
-    lastText: 'Look at my mukluks!',
-    face: 'https://pbs.twimg.com/profile_images/598205061232103424/3j5HUXMY.png'
-  }, {
-    id: 4,
-    name: 'Mike Harrington',
-    lastText: 'This is wicked good ice cream.',
-    face: 'https://pbs.twimg.com/profile_images/578237281384841216/R3ae1n61.png'
-  }];
+testFetch.controller("AllOMCController", function($scope,list){
+/*
+    var objarr = [];
+    //objarr = list;
+    $scope.fill = omcdata;
+    //$scope.fs = omcdata.getOmcData;
+    alert($scope.fill[0]);
+    */
+var makehttp = function(){
+    list.getFuelCompanies(data)
+        .then(function(data){
+            return data;
+        }, function(error){
+            return "Error";
+        })
+    };
+    alert(makehttp);
+  }
+);
 
-  return {
-    all: function() {
-      return chats;
-    },
-    remove: function(chat) {
-      chats.splice(chats.indexOf(chat), 1);
-    },
-    get: function(chatId) {
-      for (var i = 0; i < chats.length; i++) {
-        if (chats[i].id === parseInt(chatId)) {
-          return chats[i];
-        }
-      }
-      return null;
+testFetch.controller("SingleOMCController", function($scope, omc){
+    $scope.oneStation = omc;
+  }
+);
+
+testFetch.factory('list',function($http, $q){
+    //return [{'name':'Shell','petrol':99.0,'diesel':99.0,'kerosene':99.0}];
+    /*
+    var obj = {}
+    obj.getAll =  $http.get("http://localhost:8888/omcread")
+                                               .success(function(dataobj){
+                                                   return dataobj;
+                                                   })
+                                               .error(function(dataobj){
+                                               });
+    return obj;
+    */
+    //based on example from http://andyshora.com/promises-angularjs-explained-as-cartoon.html
+    return {
+        getFuelCompanies: function(){
+                                        return $http.get('http://localhost:8888/omcread')
+                                            .then(function(response){
+                                                if (typeof response === 'object') {
+                                                        return $q.resolve(response);
+
+                                                    } else {
+                                                        // invalid response
+                                                        return $q.reject(response.data);
+                                                    }
+                                            }, function(response){
+                                                //something went wrong
+                                                return $q.reject(response);
+                                            })
+
+                                    }
+
     }
-  };
 });
-;
+
+testFetch.service('TodosService', function($q) {
+  return {
+    todos: [
+      {
+        id: '1',
+        name: 'Pick up apples',
+        done: false
+      },
+      {
+        id: '2',
+        name: 'Mow the lawn',
+        done: true
+      }
+    ],
+    getTodos: function() {
+      return this.todos
+    },
+    getTodo: function(todoId) {
+      var dfd = $q.defer()
+      this.todos.forEach(function(todo) {
+        if (todo.id === todoId) dfd.resolve(todo)
+      })
+
+      return dfd.promise
+    }
+
+  }
+});
+
+
+
+/*
+testFetch.service('omcdata', function($http){
+    return{
+            omcs: function(){
+                            var stuff = [{"name":"fake omc 1", "price":23}];
+                            $http.get("http://localhost:8888/omcread")
+                                    .success(function(dataobj){
+                                        var stuff = dataobj;
+                                        })
+                                    .error(function(dataobj){
+                                    }),
+            getOmcs: function(){
+                        return this.omcs
+                    },
+
+            getOmc: function (omcId){
+                        var dfd = $q.defer()
+                        this.omcs.forEach(function (omc){
+                            if(omc.name === omcId) dfd.resolve(omc)
+                        })
+                        return dfd.promise
+                    }
+                        }
+
+    }
+    //var fillings=[{'name':'Shell','petrol':99.0,'diesel':99.0,'kerosene':99.0}];
+    /*
+    fillings.getAllOmcs = function(){
+        $http.get("http://localhost:8888/omcread")
+        .success(function(dataobj){
+            var omcs = dataobj;
+            return dataobj;
+            })
+        .error(function(dataobj){
+        })
+    };
+    */
+    //return fillings;
+//});
+
+
+

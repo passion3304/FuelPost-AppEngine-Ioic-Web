@@ -1,0 +1,35 @@
+<ion-view view-title="Fuel Prices - Petrol">
+  <!-- Uncomment to let the controller called 'FuelController' work as soon as the page loads-->
+    <ion-content >
+      <h3>OMC's html {{fs[0].name}}</h3>
+      <!--Experimental content to pull refresh-->
+      <ion-refresher pulling-text="Check prices" on-refresh="alert('Hello');"></ion-refresher>
+      <!-- <ion-list><ion-item>{{err}}</ion-item></ion-list> -->
+      <!-- Trying out loop since the JSON is now working -->
+      <div class="card" ng-repeat="fill in fills" >
+        <a class="item item-text-wrap" href="#/app/playlists/{{playlist.id}}"> {{fs.name}}<h3 id="price" style="float:right;">GHS {{fs.petrol}}</h3></a>
+
+      </div>
+
+      <div class="card" ng-repeat="omc in omcs" >
+        <a class="item item-text-wrap" href="#/app/playlists/{{playlist.id}}"> {{f.name}}<h3 id="thePrice" style="float:right;">GHS {{f.petrol}}</h3></a>
+
+      </div>
+      <!-- this is the chats html start -->
+      <ion-list>
+        <ion-item class="item-remove-animate item-avatar item-icon-right" ng-repeat="chat in chats" type="item-text-wrap" href="#/tab/chats/{{chat.id}}">
+          <img ng-src="{{chat.face}}">
+          <h2>{{chat.name}}</h2>
+          <p>{{chat.lastText}}</p>
+          <i class="icon ion-chevron-right icon-accessory"></i>
+
+          <ion-option-button class="button-assertive" ng-click="remove(chat)">
+            Delete
+          </ion-option-button>
+        </ion-item>
+      </ion-list>
+      <!-- this is the chats html end   -->
+
+  </ion-content>
+</ion-view>
+

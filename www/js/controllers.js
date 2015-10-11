@@ -55,8 +55,6 @@ angular.module('starter.controllers', [])
 .controller('PlaylistCtrl', function($scope, $stateParams) {
 
 })
-
-
 //Nathan creating his own controller - DOES NOT WORK!
 .controller('OmcCtrl', function($scope) {
 

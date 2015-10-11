@@ -29,3 +29,6 @@ handlers:
   
 - url: /lib/ionic/fonts/
   static_dir: www/lib/ionic/fonts/
+
+- url: /detail
+  script: www/detail.html
