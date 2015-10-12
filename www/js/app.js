@@ -56,7 +56,6 @@ var testFetch = angular.module('starter', ['ionic', 'starter.controllers'])
         templateUrl: 'templates/playlists.html',
         //controller: 'PlaylistsCtrl'
         controller: 'FuelController'
-        //controller: 'AllOMCController'
       }
     }
   })

@@ -88,13 +88,14 @@ function refreshPrices(){
   return  $scope.omcs = [{"name":"fake omc 1", "price":23}];
 }
 
-function toggle_visibility(id) {
-           var e = document.getElementById(id);
-           if(e.style.display == 'block')
-              e.style.display = 'none';
-           else
-              e.style.display = 'block';
-        }
+//This controller shows and hides details
+testFetch.controller("toggleShowCtrl",function($scope) {
+                                          $scope.myVar = true;
+                                          $scope.toggle = function() {
+                                              $scope.myVar = !$scope.myVar;
+                                          }
+                                          });
+
 
 testFetch.controller("FuelController", function($scope,$http,$ionicLoading){
   $ionicLoading.show({template:"Loading prices..."});
@@ -113,23 +114,8 @@ testFetch.controller("FuelController", function($scope,$http,$ionicLoading){
           //alert("Something went wrong with Array in the function in app.js");
         })
         $ionicLoading.hide();
-  $scope.getData = function (){
-  //https://script.google.com/macros/s/AKfycbx2tfQe5F4pEOdFpf99DM8rMWtg_B1JguFxugBIUPWz76IbEpk/exec -- this exec public works
-  //https://script.googleusercontent.com/macros/echo?user_content_key=ufZ2RGT4ZbIHnlTLxtGnPxhPklcF6s8iXRSpyVLEpriUujW2KCbETKIugf5Q1kWhi-6g39wg8baH0Jc8nww_ZEh8omlitHHCm5_BxDlH2jW0nuo2oDemN9CCS2h10ox_1xSncGQajx_ryfhECjZEnNB6anUFLacWNXkzaa_kPlm3sFhxsxz4ugmmNikkWj5bxz8Rd12PZMwnOFpDL6kfaA&lib=MTJMUDZTypXfnHVya28c7JCwsu2EIHoHF
-    /*$http.get("https://script.google.com/macros/s/AKfycbx2tfQe5F4pEOdFpf99DM8rMWtg_B1JguFxugBIUPWz76IbEpk/exec")
-      .success(function(data){
-        $scope.omcs = data;
-        //alert(omcs[0].name);
-        //alert($scope.body);
-      })
-      .error(function(data){
-        $scope.omcName = "Errorrrr";
-        //alert("Unsuccessful");
-        //alert("Something went wrong with Array in the function in app.js");
-      })*/
-  }
 
-})
+});
 //Putting service here to see if it would work
 /*
 testFetch.service('OMCService', function($q) {

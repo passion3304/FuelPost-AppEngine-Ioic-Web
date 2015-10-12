@@ -1,82 +1,14 @@
 <ion-view view-title="Fuel Prices - Petrol">
   <!-- Uncomment to let the controller called 'FuelController' work as soon as the page loads-->
     <ion-content >
-      <!--Loading spinner
-      <script type="text/javascript">
-        function hideshow(which){
-        if (!document.getElementById)
-        return
-        if (which.style.display=="block")
-        which.style.display="none"
-        else
-        which.style.display="block"
-        }
-      </script>
-
-      <div >Now you see me</div>
-
-      <div id="adiv" style="font:24px bold; display: block; margin:auto 0;" class="card bar bar-stable" >
-        <ion-spinner></ion-spinner>
-      </div>
-      -->
-
-      <!--
-      <div class="card" ng-repeat="playlist in playlists" >
-       <a class="item item-text-wrap" href="#/app/playlists/{{playlist.id}}"> f{{playlist.title}}</a>
-      </div>
-      -->
-    <!-- creating omc cards
-    <div class="card" ng-repeat="omc in omcs">
-      <a class="item item-text-wrap" href="#/app/playlists/{{omc.name}}"> {{body}}</a>
-    </div>-->
-
-      <!--Experimental content to pull freshly pressed
-      <ion-refresher pulling-text="Reload blogs" on-refresh="reload()"></ion-refresher>
-                <ion-list>
-                    <ion-item ng-repeat="b in blogs" ng-click="show($index)">
-                        <img ng-src="{{b.avatar_URL}}" class="thumbnail">
-                        <h2 ng-bind-html="b.title"></h2>
-                        <p>{{b.name}}</p>
-                        <ion-option-button class="button-energized" ng-click="share($index)">
-                            Share
-                        </ion-option-button>
-                    </ion-item>
-                </ion-list>
-                -->
-      <!--
-      <button class="button" ng-click="getData()">Do Something</button>
-      <br>
-      name: {{omcs[0].id}}
-      -->
       <!--Experimental content to pull refresh-->
       <ion-refresher pulling-text="Check prices" on-refresh="alert('Hello');"></ion-refresher>
-      <!-- <ion-list><ion-item>{{err}}</ion-item></ion-list> -->
       <!-- Trying out loop since the JSON is now working -->
-      <div class="card" ng-repeat="omc in omcs" onclick="
-           var e = document.getElementById('hello');
-           if(e.style.display == 'block')
-              e.style.display = 'none';
-           else
-              e.style.display = 'block';
-        " >
-        <a class="item item-text-wrap"> {{omcs.name}}<h3 id="thePrice" style="float:right;">GHS {{omcs.petrol}}</h3></a>
-        <div id="hello" style="display:none;">NOW YOU SEE ME</div>
+      <div class="card" ng-repeat="omc in omcs" ng-controller="toggleShowCtrl" >
+          <div ng-hide="myVar">NOW YOU SEE ME top</div>
+        <a ng-click="toggle()" class="item item-text-wrap"> {{omc.name}}<h3 id="thePrice" style="float:right;">GHS {{omc.petrol}}</h3></a>
+        <div ng-hide="myVar">NOW YOU SEE ME</div>
       </div>
-
-      <!-- this is the chats html start -->
-      <ion-list>
-        <ion-item class="item-remove-animate item-avatar item-icon-right" ng-repeat="chat in chats" type="item-text-wrap" href="#/tab/chats/{{chat.id}}">
-          <img ng-src="{{chat.face}}">
-          <h2>{{chat.name}}</h2>
-          <p>{{chat.lastText}}</p>
-          <i class="icon ion-chevron-right icon-accessory"></i>
-
-          <ion-option-button class="button-assertive" ng-click="remove(chat)">
-            Delete
-          </ion-option-button>
-        </ion-item>
-      </ion-list>
-      <!-- this is the chats html end   -->
 
   </ion-content>
 </ion-view>
