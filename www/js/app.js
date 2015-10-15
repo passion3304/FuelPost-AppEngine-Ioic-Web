@@ -50,10 +50,10 @@ var testFetch = angular.module('starter', ['ionic', 'starter.controllers'])
       }
     })
   .state('app.playlists', {
-    url: '/playlists',
+    url: '/petrol',
     views: {
       'menuContent': {
-        templateUrl: 'templates/playlists.html',
+        templateUrl: 'templates/petrol.html',
         //controller: 'PlaylistsCtrl'
         controller: 'FuelController'
       }
@@ -134,6 +134,6 @@ var testFetch = angular.module('starter', ['ionic', 'starter.controllers'])
     })
 
   // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/app/playlists');
+  $urlRouterProvider.otherwise('/app/petrol');
 });
 

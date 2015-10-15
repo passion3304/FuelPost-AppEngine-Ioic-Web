@@ -1,12 +1,45 @@
-<ion-view view-title="Fuel Post App - Kerosene">
+<ion-view view-title="Fuel Post App - Kerosene" can-swipe-back="true">
   <!-- Uncomment to let the controller called 'FuelController' work as soon as the page loads-->
-    <ion-content >
+  <!-- Google Analytics -->
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-      <!-- Trying out loop since the JSON is now working -->
-      <div class="card" ng-repeat="omc in omcs" >
-        <a class="item item-text-wrap" href="#/app/playlists/{{playlist.id}}"> {{omc.name}}<h3 id="thePrice" style="float:right;">GHS {{omc.kerosene}}</h3></a>
+  ga('create', 'UA-68771669-2', 'auto');
+  ga('send', 'pageview');
+
+</script>
+  <ion-content >
+    <!--Experimental content to pull refresh-->
+    <ion-refresher pulling-text="Check prices" on-refresh="alert('Hello');"></ion-refresher>
+    <!-- Trying out loop since the JSON is now working -->
+    <ion-list>
+
+    <ion-item class="card" ng-repeat="omc in omcs" ng-controller="toggleShowCtrl" >
+      <div class="row" ng-hide="myVar"  ng-click="toggle()">
+        <div class="col"></div>
+        <h2><a  class="col " >{{omc.name}}</a></h2>
+        <div class="col"></div>
       </div>
+      <a ng-click="toggle()" class="item item-text-wrap" ng-hide="otherVar"> {{omc.name}}<h2 id="thePrice" style="float:right;">GHS {{omc.kerosene}}</h2></a>
+      <div ng-hide="myVar">
+        <ul class="list">
+          <li class="item item-text-wrap">Petrol:<p style="float:right;">GHS {{omc.petrol}}</p></li>
+          <li class="item item-text-wrap">Diesel:<p style="float:right;">GHS {{omc.diesel}}</p></li>
+          <li class="item item-text-wrap">Kerosene:<p style="float:right;">GHS {{omc.kerosene}}</p></li>
+        </ul>
+      </div>
+      </ion-item>
+    </ion-list>
+
 
   </ion-content>
+  <div class="tabs tabs-dark">
+    <a class="tab-item" href="#/app/playlist" title="Petrol"><i class="ion-paintbucket"></i>Petrol</a>
+    <a class="tab-item" href="#/app/diesel" title="Diesel"><i class="ion-paintbucket"></i>Diesel</a>
+    <a class="tab-item" href="#/app/kerosene" title="Kerosene"><i class="ion-paintbucket"></i>Kerosene</a>
+  </div>
 </ion-view>
 
